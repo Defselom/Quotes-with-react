@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 import "./App.css";
+import Quote from "./components/Quote";
 
 function App() {
-
   return (
     <>
-      <div className="text-red-400">
-        <h1>Quote project </h1>
+      <div className="bg-green-400  h-screen justify-center items-center flex flex-col">
+        <Quote />
       </div>
     </>
   );
