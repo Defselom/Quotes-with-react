@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FaQuoteLeft, FaSquareTumblr } from "react-icons/fa6";
 import { FaTwitterSquare } from "react-icons/fa";
 
@@ -16,18 +16,23 @@ interface Quote {
   tags: string[];
 }
 
-export default function Quote({ Randomcolor, getRandomColor }) {
+interface QuoteProps {
+  getRandomColor: () => string;
+  Randomcolor: string;
+}
+
+export default function Quote({ Randomcolor, getRandomColor }: QuoteProps) {
   const [data, setData] = useState<Quote>();
   const [color, setColor] = useState(Randomcolor);
 
   console.log(color);
 
-  const handleChangeColor = () => {
+  const handleChangeColor = useCallback(() => {
     const randomColor = getRandomColor();
     setColor(randomColor);
-  };
+  }, [getRandomColor]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await fetch("https://api.quotable.io/random");
       const jsonData = await response.json();
@@ -37,11 +42,11 @@ export default function Quote({ Randomcolor, getRandomColor }) {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, [handleChangeColor]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <>

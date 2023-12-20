@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import "./App.css";
 import Quote from "./components/Quote";
 
 function App() {
-  const [color, setcolor] = useState("");
+  const [color, setColor] = useState("");
 
-  function getRandomColor() {
+  const getRandomColor = useCallback(() => {
     const r = Math.floor(Math.random() * 255);
     const g = Math.floor(Math.random() * 255);
     const b = Math.floor(Math.random() * 255);
@@ -17,16 +17,14 @@ function App() {
     if (color === "#ffffff") {
       return getRandomColor();
     }
-    
-    setcolor(color);
+
+    setColor(color);
     return color;
-  }
+  }, []);
 
   useEffect(() => {
-    const Randomcolor = getRandomColor();
-    console.log(Randomcolor);
-    return;
-  }, []);
+    getRandomColor();
+  }, [getRandomColor]);
 
   return (
     <>
@@ -38,7 +36,7 @@ function App() {
           <Quote Randomcolor={color} getRandomColor={getRandomColor} />
         </div>
         <div className="mt-[15px] text-[16px] text-white">
-          by Defselom with ❤️
+          by <a href="https://github.com/Defselom"> Defselom </a> with ❤️
         </div>
       </div>
     </>
