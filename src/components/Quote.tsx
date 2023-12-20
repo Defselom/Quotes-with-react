@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { FaQuoteLeft } from "react-icons/fa6";
+import { FaQuoteLeft, FaSquareTumblr } from "react-icons/fa6";
+import { FaTwitterSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface Quote {
   _id: string;
@@ -41,7 +43,7 @@ export default function Quote() {
       >
         <div id="quote-container" className="flex flex-col w-full space-y-5">
           <h1 className="text-green-400 text-wrap font-bold flex text-[28px]">
-            <span className="mr-1">
+            <span className="mr-1 text-[28px]">
               <FaQuoteLeft />
             </span>
             {data?.content}
@@ -51,13 +53,34 @@ export default function Quote() {
             - {data?.author}
           </h2>
         </div>
-        <div id="button">
-          <button
-            onClick={fetchData}
-            className="mt-4 px-4 py-2 text-[13.6px] bg-green-400 text-white rounded"
+
+        <div id="button" className="flex justify-around w-full">
+          <div
+            id="social"
+            className="flex justify-start items-center w-1/2 text-green-400 text-[13.6px]"
           >
-            new quote
-          </button>
+            <span className="text-[40px]">
+              <a href="#">
+                {" "}
+                <FaSquareTumblr />
+              </a>
+            </span>
+
+            <span className="text-[40px]">
+              <a href="#">
+                {" "}
+                <FaTwitterSquare />
+              </a>
+            </span>
+          </div>
+          <div className="flex justify-end items-center">
+            <button
+              onClick={fetchData}
+              className=" items-center  px-[18px] py-[8px] text-[13.6px] bg-green-400 text-white rounded"
+            >
+              New quote
+            </button>
+          </div>
         </div>
       </div>
     </>
