@@ -48,6 +48,22 @@ export default function Quote({ Randomcolor, getRandomColor }: QuoteProps) {
     fetchData();
   }, [fetchData]);
 
+  const currentQuote = data?.content;
+
+  const currentAuthor = data?.author;
+
+  // share twitter post
+
+  const twitterLink =
+    "https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=" +
+    encodeURIComponent('"' + currentQuote + '" ' + currentAuthor);
+
+  const tumblrLink =
+    "https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=" +
+    encodeURIComponent(currentAuthor ? currentAuthor : "") +
+    "&content=" +
+    encodeURIComponent(currentQuote ? currentQuote : "") +
+    "&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button";
   return (
     <>
       <div
@@ -62,14 +78,14 @@ export default function Quote({ Randomcolor, getRandomColor }: QuoteProps) {
             <span className="mr-1 text-[28px]">
               <FaQuoteLeft />
             </span>
-            {data?.content}
+            {currentQuote}
           </h1>
 
           <h2
             style={{ color: color }}
             className="text-right mr-[30px] text-[16px]"
           >
-            - {data?.author}
+            - {currentAuthor}
           </h2>
         </div>
 
@@ -80,14 +96,14 @@ export default function Quote({ Randomcolor, getRandomColor }: QuoteProps) {
             className="flex justify-start items-center w-1/2 text-[13.6px]"
           >
             <span className="text-[40px]">
-              <a href="#">
+              <a href={tumblrLink}>
                 {" "}
                 <FaSquareTumblr />
               </a>
             </span>
 
             <span className="text-[40px]">
-              <a href="#">
+              <a href={twitterLink}>
                 {" "}
                 <FaTwitterSquare />
               </a>
